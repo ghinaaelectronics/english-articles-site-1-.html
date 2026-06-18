@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مقالات إنجليزي - الصف الأول الثانوي</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap');
+
+  :root {
+    --bmw-blue: #1c69d3;
+    --bmw-blue-light: #4da6ff;
+    --bmw-blue-dark: #0a3d7a;
+    --black: #0a0a0a;
+    --black-2: #111111;
+    --black-3: #1a1a1a;
+    --black-4: #242424;
+    --white: #ffffff;
+    --gray-1: #f5f5f5;
+    --gray-2: #e0e0e0;
+    --gray-3: #999;
+    --gray-4: #666;
+    --success: #00c853;
+    --error: #ff1744;
+    --warning: #ffd600;
+    --card-bg: #161616;
+    --card-border: rgba(28,105,211,0.18);
+    --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    --shadow: 0 8px 32px rgba(0,0,0,0.5);
+    --shadow-blue: 0 0 30px rgba(28,105,211,0.25);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --font-ar: 'Tajawal', sans-serif;
+    --font-en: 'Inter', sans-serif;
+  }
+
+  [data-theme="light"] {
+    --black: #f5f5f5;
+    --black-2: #ececec;
+    --black-3: #e0e0e0;
+    --black-4: #d5d5d5;
+    --white: #111111;
+    --card-bg: #ffffff;
+    --card-border: rgba(28,105,211,0.2);
+    --gray-3: #555;
+    --gray-4: #333;
+    --shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-ar);
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--black-2); }
+  ::-webkit-scrollbar-thumb { background: var(--bmw-blue); border-radius: 3px; }
+
+  /* ─── HEADER ─── */
+  #header {
+    position: fixed; top:0; left:0; right:0; z-index:1000;
+    height: 64px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(28,105,211,0.2);
+    display: flex; align-items: center;
+    padding: 0 24px;
+    gap: 16px;
+  }
+  [data-theme="light"] #header { background: rgba(245,245,245,0.95); }
+
+  .header-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 900; font-size: 18px;
+    color: var(--white);
+    text-decoration: none;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .logo-ring {
+    width: 36px; height: 36px;
+    border: 2.5px solid var(--bmw-blue);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 900;
+    color: var(--bmw-blue);
+    font-family: var(--font-en);
+  }
+
+  .header-search {
+    flex: 1; max-width: 400px; margin: 0 auto;
+    position: relative;
+  }
+  .header-search input {
+    width: 100%;
+    background: var(--black-3);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 40px;
+    padding: 8px 16px 8px 42px;
+    color: var(--white);
+    font-family: var(--font-ar);
+    font-size: 14px;
+    outline: none;
+    transition: var(--transition);
+  }
+  .header-search input:focus { border-color: var(--bmw-blue); box-shadow: var(--shadow-blue); }
+  .header-search input::placeholder { color: var(--gray-3); }
+  .search-icon {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--gray-3); font-size: 16px;
+    pointer-events: none;
+  }
+
+  .header-actions { display:flex; gap:8px; align-items:center; flex-shrink:0; }
+  .icon-btn {
+    width: 38px; height: 38px;
+    background: var(--black-3);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    cursor: pointer; font-size: 16px;
+    color: var(--gray-3);
+    transition: var(--transition);
+  }
+  .icon-btn:hover { background: var(--bmw-blue); color: #fff; border-color: var(--bmw-blue); }
+
+  /* ─── SIDEBAR ─── */
+  #sidebar {
+    position: fixed; top: 64px; right: 0; bottom: 0;
+    width: 260px; z-index: 900;
+    background: var(--black-2);
+    border-left: 1px solid rgba(255,255,255,0.05);
+    overflow-y: auto;
+    padding: 16px 0;
+    transition: transform 0.3s ease;
+  }
+  @media(max-width:768px) {
+    #sidebar { transform: translateX(100%); }
+    #sidebar.open { transform: translateX(0); box-shadow: -8px 0 40px rgba(0,0,0,0.6); }
+  }
+
+  .sidebar-section { margin-bottom: 4px; }
+  .sidebar-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    color: var(--bmw-blue); text-transform: uppercase;
+    padding: 12px 20px 6px;
+    font-family: var(--font-en);
+  }
+  .nav-item {
+    display:flex; align-items:center; gap: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: var(--gray-3);
+    font-size: 14px;
+    border-right: 3px solid transparent;
+    transition: var(--transition);
+    position: relative;
+  }
+  .nav-item:hover { color: var(--white); background: rgba(28,105,211,0.08); }
+  .nav-item.active { color: var(--bmw-blue); border-right-color: var(--bmw-blue); background: rgba(28,105,211,0.1); }
+  .nav-item .nav-num {
+    margin-right: auto;
+    font-size: 11px; font-family: var(--font-en);
+    background: var(--black-3);
+    padding: 2px 7px; border-radius: 10px;
+    color: var(--gray-3);
+  }
+  .nav-item.active .nav-num { background: var(--bmw-blue); color: white; }
+
+  /* ─── MAIN ─── */
+  #main {
+    margin-right: 260px;
+    margin-top: 64px;
+    padding: 32px;
+    min-height: calc(100vh - 64px);
+    transition: margin-right 0.3s;
+  }
+  @media(max-width:768px) { #main { margin-right:0; padding:16px; } }
+
+  /* ─── HERO / STATS ─── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .stat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 20px;
+    position: relative; overflow: hidden;
+    transition: var(--transition);
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, var(--bmw-blue), var(--bmw-blue-light));
+  }
+  .stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-blue); }
+  .stat-num {
+    font-size: 36px; font-weight: 900; font-family: var(--font-en);
+    color: var(--bmw-blue);
+    line-height: 1;
+  }
+  .stat-label { font-size: 12px; color: var(--gray-3); margin-top: 4px; }
+  .stat-icon { position: absolute; top:16px; left:16px; font-size: 24px; opacity: 0.15; }
+
+  /* ─── SECTION TITLE ─── */
+  .section-head {
+    display:flex; align-items:center; gap:12px;
+    margin-bottom: 20px;
+  }
+  .section-head h2 { font-size: 20px; font-weight: 700; }
+  .section-line { flex:1; height:1px; background: var(--card-border); }
+  .section-tag {
+    font-size: 11px; background: var(--bmw-blue); color: white;
+    padding: 3px 10px; border-radius: 20px;
+    font-family: var(--font-en); font-weight: 600;
+  }
+
+  /* ─── ARTICLE CARDS (HOME) ─── */
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .article-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 24px;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative; overflow: hidden;
+  }
+  .article-card::after {
+    content: '';
+    position: absolute; bottom:0; left:0; right:0; height:3px;
+    background: linear-gradient(90deg, var(--bmw-blue), var(--bmw-blue-light));
+    transform: scaleX(0); transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  .article-card:hover { transform: translateY(-4px); box-shadow: var(--shadow), var(--shadow-blue); border-color: var(--bmw-blue); }
+  .article-card:hover::after { transform: scaleX(1); transform-origin: left; }
+  .card-num {
+    font-size: 11px; font-family: var(--font-en); font-weight: 700;
+    color: var(--bmw-blue); letter-spacing: 1.5px;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .card-title { font-size: 17px; font-weight: 700; margin-bottom: 10px; line-height: 1.4; font-family: var(--font-en); color: var(--white); }
+  .card-excerpt { font-size: 13px; color: var(--gray-3); line-height: 1.7; direction: ltr; text-align: left; }
+  .card-meta {
+    display:flex; gap:8px; align-items:center;
+    margin-top: 16px; flex-wrap: wrap;
+  }
+  .card-tag {
+    font-size: 11px; padding: 3px 10px; border-radius: 20px;
+    background: rgba(28,105,211,0.15);
+    border: 1px solid rgba(28,105,211,0.3);
+    color: var(--bmw-blue-light);
+    font-family: var(--font-en);
+  }
+  .card-read-badge {
+    margin-right: auto;
+    font-size: 11px; color: var(--success);
+    display: none;
+  }
+  .card-read-badge.visible { display: flex; align-items: center; gap: 4px; }
+  .read-bar {
+    height: 3px; background: var(--black-3);
+    border-radius: 2px; margin-top: 12px;
+  }
+  .read-bar-fill {
+    height: 100%; border-radius: 2px;
+    background: linear-gradient(90deg, var(--bmw-blue), var(--bmw-blue-light));
+    transition: width 0.5s ease;
+  }
+
+  /* ─── ARTICLE VIEW ─── */
+  #article-view { display:none; }
+  #article-view.active { display:block; }
+  #home-view.hidden { display:none !important; }
+
+  .article-header {
+    margin-bottom: 32px;
+  }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--bmw-blue); cursor: pointer; font-size: 14px;
+    margin-bottom: 16px; font-weight: 600;
+    transition: var(--transition);
+    background: none; border: none;
+  }
+  .back-btn:hover { color: var(--bmw-blue-light); transform: translateX(4px); }
+
+  .article-title-big {
+    font-size: clamp(22px, 4vw, 36px);
+    font-weight: 900; line-height: 1.2;
+    font-family: var(--font-en);
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, var(--white), var(--bmw-blue-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .article-controls {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  .ctrl-btn {
+    display:inline-flex; align-items:center; gap:6px;
+    padding: 8px 16px; border-radius: 40px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: var(--card-bg);
+    color: var(--gray-3); cursor: pointer; font-size: 13px;
+    font-family: var(--font-ar);
+    transition: var(--transition);
+  }
+  .ctrl-btn:hover, .ctrl-btn.active { background: var(--bmw-blue); color: white; border-color: var(--bmw-blue); }
+
+  /* ─── TABS ─── */
+  .tabs {
+    display:flex; gap:4px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 50px;
+    padding: 4px;
+    margin-bottom: 24px;
+    width: fit-content;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .tab {
+    padding: 8px 20px; border-radius: 40px;
+    cursor: pointer; font-size: 13px; font-weight: 600;
+    color: var(--gray-3);
+    transition: var(--transition);
+    white-space: nowrap;
+    border: none; background: none;
+    font-family: var(--font-ar);
+  }
+  .tab.active { background: var(--bmw-blue); color: white; }
+
+  /* ─── DUAL TEXT ─── */
+  .dual-pane {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media(max-width:600px) { .dual-pane { grid-template-columns:1fr; } }
+
+  .pane {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+  .pane-label {
+    font-size: 11px; letter-spacing: 2px; font-weight: 700; text-transform: uppercase;
+    color: var(--bmw-blue); margin-bottom: 14px;
+    font-family: var(--font-en);
+    display:flex; align-items:center; gap:8px;
+  }
+  .en-text {
+    font-family: var(--font-en); font-size: 15px; line-height: 1.9;
+    color: var(--white); direction: ltr; text-align: left;
+  }
+  .en-text .selectable-word {
+    cursor: pointer; border-radius: 3px;
+    transition: background 0.15s;
+    padding: 0 1px;
+  }
+  .en-text .selectable-word:hover { background: rgba(28,105,211,0.3); color: var(--bmw-blue-light); }
+  .ar-text {
+    font-family: var(--font-ar); font-size: 16px; line-height: 2;
+    color: var(--white); direction: rtl; text-align: right;
+  }
+
+  /* ─── VOCAB ─── */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .vocab-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    transition: var(--transition);
+    position: relative;
+  }
+  .vocab-card:hover { border-color: var(--bmw-blue); box-shadow: var(--shadow-blue); transform: translateY(-2px); }
+  .vocab-word {
+    font-family: var(--font-en); font-size: 18px; font-weight: 700;
+    color: var(--bmw-blue-light); margin-bottom: 4px;
+  }
+  .vocab-phonetic { font-size: 12px; color: var(--gray-3); font-family: var(--font-en); margin-bottom: 8px; }
+  .vocab-ar { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .vocab-example {
+    font-size: 12px; color: var(--gray-3); font-family: var(--font-en);
+    direction: ltr; line-height: 1.6; font-style: italic;
+  }
+  .vocab-speak {
+    position: absolute; top:12px; left:12px;
+    background: none; border: none; cursor: pointer;
+    color: var(--bmw-blue); font-size: 16px;
+    transition: var(--transition);
+  }
+  .vocab-speak:hover { transform: scale(1.2); }
+
+  /* ─── QUIZ ─── */
+  .quiz-container { max-width: 720px; }
+  .quiz-type-select {
+    display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px;
+  }
+  .quiz-type-btn {
+    padding: 8px 18px; border-radius: 40px;
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    color: var(--gray-3); cursor: pointer; font-size: 13px;
+    transition: var(--transition); font-family: var(--font-ar);
+  }
+  .quiz-type-btn.active { background: var(--bmw-blue); color: white; border-color: var(--bmw-blue); }
+
+  .generate-quiz-btn {
+    padding: 12px 28px; border-radius: 40px;
+    background: linear-gradient(135deg, var(--bmw-blue-dark), var(--bmw-blue));
+    color: white; border: none; cursor: pointer;
+    font-size: 14px; font-weight: 700; font-family: var(--font-ar);
+    transition: var(--transition); margin-bottom: 24px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .generate-quiz-btn:hover { box-shadow: var(--shadow-blue); transform: translateY(-2px); }
+  .generate-quiz-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .question-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: var(--transition);
+  }
+  .q-num { font-size: 11px; color: var(--bmw-blue); font-weight: 700; font-family: var(--font-en); margin-bottom: 8px; text-transform: uppercase; }
+  .q-text { font-size: 16px; font-weight: 600; margin-bottom: 16px; line-height: 1.6; }
+  .options { display:grid; gap:8px; }
+  .option {
+    padding: 12px 16px; border-radius: var(--radius-sm);
+    background: var(--black-3); border: 1px solid rgba(255,255,255,0.05);
+    cursor: pointer; font-size: 14px; transition: var(--transition);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .option:hover { border-color: var(--bmw-blue); color: var(--bmw-blue-light); }
+  .option.selected { background: rgba(28,105,211,0.2); border-color: var(--bmw-blue); color: var(--bmw-blue-light); }
+  .option.correct { background: rgba(0,200,83,0.15); border-color: var(--success); color: var(--success); }
+  .option.wrong { background: rgba(255,23,68,0.15); border-color: var(--error); color: var(--error); }
+  .option-letter {
+    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+    background: rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;
+    font-size: 12px; font-weight: 700; font-family: var(--font-en);
+  }
+
+  .tf-options { display:flex; gap:12px; }
+  .tf-btn {
+    flex:1; padding: 14px; border-radius: var(--radius-sm);
+    background: var(--black-3); border: 1px solid rgba(255,255,255,0.05);
+    cursor: pointer; font-size: 16px; font-weight: 700;
+    transition: var(--transition); text-align: center;
+  }
+  .tf-btn:hover { border-color: var(--bmw-blue); }
+  .tf-btn.selected { background: rgba(28,105,211,0.2); border-color: var(--bmw-blue); color: var(--bmw-blue-light); }
+  .tf-btn.correct { background: rgba(0,200,83,0.15); border-color: var(--success); color: var(--success); }
+  .tf-btn.wrong { background: rgba(255,23,68,0.15); border-color: var(--error); color: var(--error); }
+
+  .fill-input {
+    width: 100%; padding: 12px 16px;
+    background: var(--black-3); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-sm); color: var(--white);
+    font-size: 15px; font-family: var(--font-en); outline: none;
+    direction: ltr; transition: var(--transition);
+  }
+  .fill-input:focus { border-color: var(--bmw-blue); }
+  .fill-input.correct { border-color: var(--success); background: rgba(0,200,83,0.08); }
+  .fill-input.wrong { border-color: var(--error); background: rgba(255,23,68,0.08); }
+
+  .submit-quiz-btn {
+    width: 100%; padding: 14px;
+    background: linear-gradient(135deg, var(--bmw-blue-dark), var(--bmw-blue));
+    border: none; color: white; border-radius: var(--radius-sm);
+    font-size: 16px; font-weight: 700; cursor: pointer;
+    font-family: var(--font-ar); transition: var(--transition); margin-top: 8px;
+  }
+  .submit-quiz-btn:hover { box-shadow: var(--shadow-blue); }
+
+  /* ─── SCORE CARD ─── */
+  .score-card {
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    border-radius: var(--radius); padding: 40px; text-align: center;
+    margin-top: 20px; display:none;
+  }
+  .score-card.visible { display:block; }
+  .score-circle {
+    width: 120px; height: 120px; border-radius: 50%;
+    border: 4px solid var(--bmw-blue);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    margin: 0 auto 20px;
+    box-shadow: 0 0 40px rgba(28,105,211,0.3);
+  }
+  .score-pct { font-size: 32px; font-weight: 900; color: var(--bmw-blue); font-family: var(--font-en); }
+  .score-label { font-size: 12px; color: var(--gray-3); }
+  .score-msg { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .retry-btn {
+    margin-top: 16px; padding: 10px 24px; border-radius: 40px;
+    background: none; border: 1px solid var(--bmw-blue);
+    color: var(--bmw-blue); cursor: pointer; font-size: 14px;
+    font-family: var(--font-ar); transition: var(--transition);
+  }
+  .retry-btn:hover { background: var(--bmw-blue); color: white; }
+
+  /* ─── EXPECTED Q ─── */
+  .expected-q {
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    border-radius: var(--radius); padding: 20px; margin-bottom: 12px;
+  }
+  .expected-q .q { font-size: 15px; font-weight: 600; margin-bottom: 10px; }
+  .expected-q .a {
+    font-size: 14px; color: var(--gray-3);
+    padding: 10px 14px; background: var(--black-3);
+    border-radius: var(--radius-sm); border-right: 3px solid var(--bmw-blue);
+    line-height: 1.7; font-family: var(--font-en); direction: ltr;
+    display: none;
+  }
+  .expected-q .a.visible { display: block; }
+  .show-ans-btn {
+    background: none; border: 1px solid rgba(255,255,255,0.1);
+    color: var(--gray-3); padding: 6px 14px; border-radius: 20px;
+    cursor: pointer; font-size: 12px; margin-top: 8px;
+    font-family: var(--font-ar); transition: var(--transition);
+  }
+  .show-ans-btn:hover { border-color: var(--bmw-blue); color: var(--bmw-blue); }
+
+  /* ─── SEARCH RESULTS ─── */
+  .search-result {
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm); padding: 16px; margin-bottom: 12px;
+    cursor: pointer; transition: var(--transition);
+  }
+  .search-result:hover { border-color: var(--bmw-blue); }
+  .search-result-title { font-weight: 700; color: var(--bmw-blue-light); font-family: var(--font-en); margin-bottom: 6px; }
+  .search-result-text { font-size: 13px; color: var(--gray-3); font-family: var(--font-en); direction: ltr; }
+  mark { background: rgba(28,105,211,0.35); color: var(--bmw-blue-light); border-radius: 2px; }
+
+  /* ─── LOADING ─── */
+  .loader {
+    display: flex; align-items: center; gap: 12px;
+    padding: 20px; color: var(--gray-3); font-size: 14px;
+  }
+  .spin {
+    width: 20px; height: 20px;
+    border: 2px solid rgba(255,255,255,0.1);
+    border-top-color: var(--bmw-blue);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ─── TOAST ─── */
+  #toast {
+    position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+    background: var(--bmw-blue); color: white;
+    padding: 12px 20px; border-radius: var(--radius-sm);
+    font-size: 14px; box-shadow: var(--shadow);
+    transform: translateY(80px); opacity: 0;
+    transition: all 0.3s ease;
+  }
+  #toast.show { transform: translateY(0); opacity: 1; }
+
+  /* ─── MOBILE MENU BTN ─── */
+  #menu-toggle { display:none; }
+  @media(max-width:768px) { #menu-toggle { display:flex; } }
+
+  /* ─── OVERLAY ─── */
+  #overlay {
+    display:none; position:fixed; inset:0; z-index:850;
+    background: rgba(0,0,0,0.6); backdrop-filter: blur(2px);
+  }
+  #overlay.active { display:block; }
+
+  /* ─── EMPTY STATE ─── */
+  .empty { text-align:center; padding:60px 20px; color:var(--gray-3); }
+  .empty-icon { font-size:48px; margin-bottom:12px; opacity:0.3; }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from { opacity:0; transform: translateY(20px); }
+    to { opacity:1; transform: translateY(0); }
+  }
+  .fade-in { animation: fadeInUp 0.4s ease forwards; }
+
+  /* Loading screen */
+  #loading-screen {
+    position: fixed; inset:0; z-index:9999;
+    background: var(--black);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap: 20px;
+  }
+  .loading-logo { font-size: 48px; font-weight: 900; color: var(--bmw-blue); font-family: var(--font-en); }
+  .loading-bar-wrap { width: 200px; height: 3px; background: var(--black-3); border-radius: 2px; overflow:hidden; }
+  .loading-bar { height: 100%; background: var(--bmw-blue); border-radius: 2px; animation: loadBar 1.5s ease forwards; }
+  @keyframes loadBar { from { width:0; } to { width:100%; } }
+  .loading-text { color: var(--gray-3); font-size: 14px; }
+</style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div id="loading-screen">
+  <div class="loading-logo">EN</div>
+  <div class="loading-bar-wrap"><div class="loading-bar"></div></div>
+  <div class="loading-text">جارٍ تحميل المقالات...</div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<!-- Overlay (mobile) -->
+<div id="overlay" onclick="closeSidebar()"></div>
+
+<!-- Header -->
+<header id="header">
+  <div class="header-logo" onclick="goHome()">
+    <div class="logo-ring">EN</div>
+    إنجليزي أول ثانوي
+  </div>
+  <div class="header-search">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search-input" placeholder="ابحث في جميع المقالات..." oninput="handleSearch(this.value)">
+  </div>
+  <div class="header-actions">
+    <button class="icon-btn" onclick="toggleTheme()" title="تغيير المظهر">🌙</button>
+    <button class="icon-btn" id="menu-toggle" onclick="toggleSidebar()">☰</button>
+  </div>
+</header>
+
+<!-- Sidebar -->
+<nav id="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-label">القائمة</div>
+    <div class="nav-item active" onclick="goHome()" id="nav-home">
+      <span>🏠</span> الرئيسية
+    </div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">المقالات</div>
+    <div id="sidebar-articles"></div>
+  </div>
+  <div class="sidebar-section" style="margin-top:8px;">
+    <div class="sidebar-label">الإحصائيات</div>
+    <div class="nav-item" id="nav-stats" onclick="showStatsPage()">
+      <span>📊</span> لوحة الإحصائيات
+    </div>
+  </div>
+</nav>
+
+<!-- Main -->
+<main id="main">
+
+  <!-- Home View -->
+  <div id="home-view">
+    <!-- Stats -->
+    <div class="stats-grid" id="stats-grid"></div>
+
+    <!-- Search Results -->
+    <div id="search-results-view" style="display:none;">
+      <div class="section-head">
+        <h2>نتائج البحث</h2>
+        <div class="section-line"></div>
+      </div>
+      <div id="search-results-list"></div>
+    </div>
+
+    <!-- Articles Grid -->
+    <div id="articles-section">
+      <div class="section-head">
+        <h2>جميع المقالات</h2>
+        <div class="section-line"></div>
+        <span class="section-tag" id="articles-count">0 مقال</span>
+      </div>
+      <div class="articles-grid" id="articles-grid"></div>
+    </div>
+
+    <!-- Stats Page (hidden) -->
+    <div id="stats-page" style="display:none;"></div>
+  </div>
+
+  <!-- Article View -->
+  <div id="article-view">
+    <div class="article-header">
+      <button class="back-btn" onclick="goHome()">← العودة للرئيسية</button>
+      <div class="article-title-big" id="article-title"></div>
+      <div class="article-controls">
+        <button class="ctrl-btn" id="btn-listen-all" onclick="listenAll()">🔊 استمع للمقال كاملاً</button>
+        <button class="ctrl-btn" id="btn-stop" onclick="stopSpeech()" style="display:none;">⏹ إيقاف</button>
+        <button class="ctrl-btn" onclick="markAsRead()">✓ تمييز كمقروء</button>
+      </div>
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('text', this)">📖 النص</button>
+        <button class="tab" onclick="switchTab('vocab', this)">📚 المفردات</button>
+        <button class="tab" onclick="switchTab('quiz', this)">✏️ الاختبار</button>
+        <button class="tab" onclick="switchTab('expected', this)">❓ أسئلة متوقعة</button>
+      </div>
+    </div>
+
+    <!-- Text Tab -->
+    <div id="tab-text">
+      <div class="dual-pane">
+        <div class="pane">
+          <div class="pane-label">🇬🇧 English Text</div>
+          <div class="en-text" id="en-text-content"></div>
+        </div>
+        <div class="pane">
+          <div class="pane-label">🇯🇴 الترجمة العربية</div>
+          <div class="ar-text" id="ar-text-content"><div class="loader"><div class="spin"></div> جارٍ الترجمة...</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vocab Tab -->
+    <div id="tab-vocab" style="display:none;">
+      <div class="loader" id="vocab-loader"><div class="spin"></div> جارٍ استخراج المفردات...</div>
+      <div class="vocab-grid" id="vocab-grid"></div>
+    </div>
+
+    <!-- Quiz Tab -->
+    <div id="tab-quiz" style="display:none;">
+      <div class="quiz-container">
+        <div class="quiz-type-select">
+          <button class="quiz-type-btn active" data-type="mcq" onclick="selectQuizType(this)">🔘 اختيار من متعدد</button>
+          <button class="quiz-type-btn" data-type="tf" onclick="selectQuizType(this)">✅ صح أو خطأ</button>
+          <button class="quiz-type-btn" data-type="fill" onclick="selectQuizType(this)">📝 إكمال الفراغات</button>
+        </div>
+        <button class="generate-quiz-btn" id="gen-quiz-btn" onclick="generateQuiz()">
+          <span>⚡</span> توليد الاختبار
+        </button>
+        <div id="quiz-questions"></div>
+        <div id="quiz-submit-wrap" style="display:none;">
+          <button class="submit-quiz-btn" onclick="submitQuiz()">تسليم الإجابات ✓</button>
+        </div>
+        <div class="score-card" id="score-card"></div>
+      </div>
+    </div>
+
+    <!-- Expected Tab -->
+    <div id="tab-expected" style="display:none;">
+      <div class="loader" id="expected-loader"><div class="spin"></div> جارٍ توليد الأسئلة المتوقعة...</div>
+      <div id="expected-list"></div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// ══════════════════════════════════════════════════
+//  DATA: All articles extracted from the DOCX
+// ══════════════════════════════════════════════════
+const ARTICLES = [
+  {
+    id: 1,
+    title: "Regulated AI is Good for Children",
+    category: "Technology",
+    text: `Artificial Intelligence (AI) refers to how computers can do tasks that are usually done by intelligent humans. As a result, AI computers can now do amazing things, including writing songs, solving scientific problems and even helping to find cures for diseases. People are also using AI more and more in everyday life and although it might make many aspects of life easier, it could also make things worse, especially for our children.
+
+AI is already used by many forms of social media. As with other forms of social media, AI can learn about its users' interests and hobbies, and that includes children. According to the website Net Positive, AI can even identify children's voices. This might mean children are directed to online advertising and content that their parents would not want.
+
+However, some countries like Jordan are hoping to use AI sensibly. UNIDO reports that many industries have worked together to create a plan for using AI in the country's development over the next five years. Jordan is in a good position for using AI as it is at the forefront of technology.
+
+The people looking into using AI are hoping it will help in science, industry and government services. However, there is a danger that this increased use of AI could result in problems with online safety if not controlled. Consequently, the government plans to set up regulations to address these dangers and strictly control how it is used.
+
+Of course, some people are worried that students using AI might end up with incorrect work. AI search engines do not always use reliable sources and information provided by AI might be incomplete or even wrong.
+
+We are still at an early stage in the development of AI and there is no doubt it is an exciting form of technology. However, without careful rules to control how it is used, and who it is used by, there are undoubted problems with it. Children themselves might find they are relying on a form of technology that in its present form should not always be trusted. As Time magazine argues, unless we start to control how we use it, 'kids will be the biggest losers.'`
+  },
+  {
+    id: 2,
+    title: "The Future's Bright / Terrifying",
+    category: "Society",
+    text: `In many ways, human life on this planet is better than it's ever been. In many countries across the world, crime has been dropping steadily. This may be due to better education, or perhaps to a reduction in extreme poverty. In 2018, the proportion of the world's population living in extreme poverty fell to around ten percent. With luck, no one will be living in this way within a few decades.
+
+Technology is also making our lives easier and safer, and this trend is bound to continue. For example, driving is sure to become safer. Human error is the key reason for most car accidents, and well-programmed driverless cars may save huge numbers of lives. Such cars are already a reality and are going to become more common in the next few years.
+
+And finally, life expectancy is already higher than it's ever been and as a result of better medicine, people are likely to live until the age of 100.
+
+We may have seen some improvement in poverty and crime in recent decades, but we assume that this pattern will continue? I'd argue that for most people life is actually unlikely to get better.
+
+Advances in robotics and artificial intelligence will not only reduce the number of unskilled jobs available, but will also eliminate semi-skilled jobs which can be done by a computer. By 2050, young people will have been trying, and failing, to get a job for most of their 'working' lives! In 30 years' time, a few lucky people will be rich and the rest of us will be poor.
+
+Within 20 years, we will have stopped fighting over oil — we'll be fighting over water instead, as global warming is certain to lead to more water shortages.`
+  },
+  {
+    id: 3,
+    title: "Making Contact",
+    category: "Nature & Science",
+    text: `We know that some animals understand basic instructions, allowing travellers to control their horses or camels, for example. But although some of the more intelligent animals can figure out what we want them to do, we have long assumed that communication with – and between – animals must be limited. However, thanks to the work done by the naturalist Jane Goodall since the 1960s, we should take the possibility seriously that some animals can both take in what we are saying and get across complex ideas.
+
+As a child, Jane loved reading books about a fictional character called Dr Dolittle, who could talk to animals. Perhaps this is what inspired her to go to Africa when she was in her 20s. Here she came across a scientist who asked Jane if she wanted a job observing chimpanzees in the wild. She immediately said yes. She went with her mother to the shores of Lake Tanganyika in Tanzania to start her new job, and it was not long before she made out a group of chimpanzees in the trees around an area now called the Gombe Stream National Park.
+
+How could a young English woman with no scientific training possibly make contact with a group of wild chimpanzees? At first, the animals ran away as soon as they saw her. But maybe because she knew very little about these wild animals, it is highly likely that her calmness gained their trust. It was only later that Jane would learn how dangerous they could be. She saw that groups of chimpanzees had battles in which they tried to wipe out the rival group. But before this, her studies showed her that the chimpanzees could clearly communicate, allowing them to groom and help each other, share food as well as have arguments. Jane pointed out that animals couldn't communicate using language like people, but they could communicate by gesture and sound. Amazingly, she also realised they could use sign language.
+
+At this time, people believed that only humans could use tools, but Jane watched chimpanzees using sticks to take ants from a tree, and then used the sticks to feed the ants to their young. Through her work, Jane spelled out to the scientific community for the first time that animals could use tools.
+
+Jane went on to write a number of books about her work. As well as explaining chimpanzees' highly developed social behaviour, she taught us that they are omnivores. In 2002, she became a UN Messenger for Peace.
+
+In my opinion, Jane Goodall brought about a complete change in the way people understood how animals can communicate. Since her work in Tanzania, naturalists have continued to study different forms of communication between animals such as whales and elephants, who can pick up sounds made by other whales and elephants over large distances.`
+  },
+  {
+    id: 4,
+    title: "They Need Saving Too!",
+    category: "Nature & Science",
+    text: `It's no accident that the symbol of the World Wide Fund for Nature is a giant panda. These animals are cute or beautiful, or both, and of course we all want to save them. This popularity enables organisations such as the WWF to raise money to support a range of critically endangered species. However, less well-known or 'exciting' creatures are far more likely to become extinct because they don't get enough attention from researchers. Invertebrates (animals without a backbone) make up over 90% of all the creatures on Earth, but get only a tiny percentage of the money available to protect our wildlife.
+
+And what about those creatures that many people would find positively ugly? With its tiny eyes, big mouth and slimy pink body, the blobfish is far from attractive. This marine creature lives deep in the ocean, where the pressure is very high. As a result, it has tiny fins and no skeleton, which keeps it from being crushed by the water pressure. Unfortunately, when fishing boats sweep the ocean floor, looking for other fish and crustaceans, these fish can get swept into the nets accidentally.
+
+The threat faced by the pangolin, however, is far from accidental. They are more often targeted by poachers than any other animal in the world. Unique among mammals, it is covered in scales, like a reptile. They may not look very cuddly or cute, but these scales are highly prized in traditional Chinese medicine, which has caused the population of pangolins in China to fall by around 90% since the 1960s. Their scales protect them from their natural predators, but it's simple for a poacher to just pick them up.
+
+Other creatures become endangered precisely because people find them ugly. Take the aye aye for example. Found only on the island of Madagascar, the aye aye is the world's largest nocturnal primate. During the day they sleep in nests in the trees, coming out to hunt at night. They are solitary creatures, furry, and harmless but unfortunately, they are often killed.`
+  },
+  {
+    id: 5,
+    title: "Oliver Twist",
+    category: "Literature",
+    text: `In England during the 1800s, many people came to the cities to work. There were places called workhouses where the poorest people could live, work and eat to make ends meet. But life in the workhouses was not easy, where people somehow managed a subsistence, living day-to-day, huddled together to keep warm.
+
+One night, a woman arrived at a workhouse. She gave birth to a baby but then sadly died. A nurse called the baby Oliver Twist and he was sent to a house for orphans until he was nine. Then he was sent to a workhouse to work. Oliver was sad to leave the other orphans. Although the boys lived hand-to-mouth, they had a sense of belonging in the house and looked after each other.
+
+In the workhouse, all the other boys were as malnourished as Oliver. One day, they encouraged Oliver to beg for more food, but this made the managers of the workhouse angry.
+
+Oliver decided to escape to London but had no food and went hungry for days, before he met another boy called Jack Dawkins. He showed Oliver the way to the city. Jack introduced Oliver to an old man called Fagin, who gave Oliver some food and a bed to sleep on. The next day, Oliver saw many other boys come to Fagin's house. The boys gathered together to give the old man watches and jewellery. Fagin then told Oliver to go into the streets with the other boys and learn from them. Oliver was shocked when he saw the boys take things from people's pockets. He understood that they were thieves!`
+  },
+  {
+    id: 6,
+    title: "Are Families as Close as They Used to Be?",
+    category: "Society",
+    text: `Many people today feel that relationships between members of the same family are not as close as they were a few generations ago. Changes in our working lives and the advent of technology have certainly altered how families interact, but I would argue that families generally remain as close as they ever were.
+
+Increasingly, parents are seeking a greater work-life balance. This means that even in a family where both parents work, they are often able to ensure that at least one parent is available to take their children to after-school activities or to attend shows and concerts at the school. A better work-life balance also enables families to spend more quality time together.
+
+It is commonly accepted that the time needed to run a household has also decreased over the last few decades as more and more labour-saving devices have been invented. A striking example of this is the humble washing machine, which Hans Rosling, a well-known Swedish statistician, called 'the greatest invention of the industrial revolution' because of the way it liberated parents to spend more time with their children. Prior to its invention, it was usual to spend an entire day doing laundry.
+
+Going online can be seen as a way of bringing families together as well as a distraction. Whereas in the past family members living apart would have to write letters and often wait a long time for a reply, nowadays there are many more ways to keep in touch, such as social media and video calls. Overall, I believe that family members do communicate with each other more than in the past, whether through technology or face-to-face.
+
+In conclusion, I would say that while society may have changed, families remain as close as they were, aided by technology and greater flexibility in working patterns.`
+  },
+  {
+    id: 7,
+    title: "Sabriye Tenberken",
+    category: "Inspirational",
+    text: `German-born Sabriye Tenberken became blind at the age of 12. Life was not easy for her at her first school. She was desperate to fit in, but other children were often cruel to her and her teachers did not understand her needs.
+
+She often tried to hide her blindness until she went to a special boarding school for the blind. Here she realised that blind people were capable of doing the same things as everyone else. The school taught her to come to terms with being blind. She learnt various sports including horse riding and she also learnt how to read Braille. She quickly grew in confidence.
+
+She later studied Tibetan at Bonn University. She learnt that many Tibetan people had problems with their eyesight, partly because of their diet but mainly because of the damaging sun at high altitudes. There was no Braille in Tibetan, so she decided to write a Tibetan Braille system. At first, she did this to help her with her own studies, but then she realised its potential to help people in the mountainous region of China.
+
+She had always wanted to go to Tibet and when she was 26 she decided to pursue her dream and visit the country to introduce her Braille system to local people.
+
+Although she travelled with two Tibetan guides, it was tough for Sabriye to travel around the rural parts of Tibet, but that did not put her off. Many people did not believe she was blind because she travelled by horse, and she was shocked to find how blind children were treated. Some were never allowed outside because their parents believed they would hurt themselves. So she became determined to help them and the word was quickly spread about the blind woman who also wanted to set up a school for the blind.
+
+Sabriye later met Paul Kronenberg, who became her business partner. Together they set up a school, called Braille Without Borders. It has a vision to help blind children to adjust to their blindness and to learn many of the same skills that she had learnt as a girl.
+
+Sabriye realised that blindness has given her the opportunity to help people like herself. Her work has become famous and she was even nominated for the Nobel Peace Prize in 2005. She has also won awards for her work and has also written a book called My Path Leads to Tibet about her life and work.`
+  },
+  {
+    id: 8,
+    title: "Shakespeare",
+    category: "Literature",
+    text: `Shakespeare died over 400 years ago, but today his plays and sonnets are still studied by students all over the world. The playwright's influence is everywhere.
+
+Shakespeare's plays have led to a variety of interpretations and adaptations that have impacted our lives in various ways. There is a magic about Shakespeare's works and characters that reaches out across the centuries. And that's because Hamlet's 'to be or not to be' is as valid today as it has ever been.
+
+Shakespeare also had other significant impacts on our culture. It was his works that helped redefine modern theatre. He interacted with people from all backgrounds and classes and his staging of plays brought theatre to the general public. His plots also helped modern cinematic techniques develop; familiarity with the storylines of Shakespeare's plays allowed early cinema pioneers to experiment with silent movies.
+
+In addition to this, Shakespeare shares universal themes and the questions he poses about what we know about history and historical figures. Furthermore, the questions he raised about people's thought processes and behaviour prompted early investigations into psychoanalysis. Last but not least, of course, one of Shakespeare's main influences was on the English language itself. He added a huge amount of vocabulary to enrich the English language. Every day English speakers unthinkingly use Shakespearean words or phrases. Shakespeare is also famous for his sonnets (a type of poem with 14 lines), a rhythm called a metre, and a specific rhyme scheme.
+
+The questions Shakespeare asks in his plays are just that – questions. He leaves it to us, his audiences, to discuss and form our own responses. This is another way Shakespeare has influenced education today. Looking at Shakespeare's plays and analysing the motivation of the protagonist can help students develop critical thinking skills. By questioning our assumptions and beliefs we become better thinkers.`
+  },
+  {
+    id: 9,
+    title: "The Jordan Museum",
+    category: "Culture & History",
+    text: `I happened to come across this gem of a museum last week on a family trip to Jordan, so we decided to check it out. I'm so glad we did as it turned out to be a hugely enjoyable experience.
+
+The museum opened recently in the Ras al-'Ayn district of Amman. It's near the Citadel, and tells the story of Jordan through history. It has a very beautiful building too, a combination of stone (reflecting the past) and glass (reflecting Jordan's present and future). The large permanent collection starts off with a look at what the country was like in the Stone Age, some 1.5 million years ago. You can then move on to different galleries that take you through 2,000 artifacts covering the Romans, Nabatean history and much more.
+
+What I really liked was the only copper Dead Sea scrolls, which is totally mind-blowing. Another highlight is one of the world's oldest human statues, dating back to 7500 BCE.
+
+The extremely varied themes of the museum include food production, the development of visual arts and architecture, international trade and communication, and the growth of industry. These are explained using modern graphics and interactive displays which are absolutely fascinating.
+
+I was also impressed by the special children's area where children can take part in performing arts activities inspired by the museum's exhibits.
+
+My only criticism of the museum is that the experience just went by too fast. I really enjoyed all the exhibits, but would love to have been able to see and experience even more.
+
+Despite that, I'd definitely recommend going to the museum if you are in Amman because not only is it informative and educational, but it's also a lot of fun. And if this was not enough, there is also a pretty amazing gift shop and café!`
+  }
+];
+
+// ══════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════
+let currentArticle = null;
+let currentTab = 'text';
+let quizType = 'mcq';
+let quizData = [];
+let userAnswers = {};
+let quizSubmitted = false;
+let readArticles = JSON.parse(localStorage.getItem('readArticles') || '[]');
+let quizScores = JSON.parse(localStorage.getItem('quizScores') || '{}');
+let savedWords = JSON.parse(localStorage.getItem('savedWords') || '[]');
+let vocabCache = {};
+let translationCache = {};
+let expectedCache = {};
+
+// ══════════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════════
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loading-screen').style.opacity = '0';
+    document.getElementById('loading-screen').style.transition = 'opacity 0.5s';
+    setTimeout(() => document.getElementById('loading-screen').style.display = 'none', 500);
+  }, 1600);
+  renderSidebar();
+  renderStats();
+  renderArticlesGrid();
+  applyTheme();
+});
+
+// ══════════════════════════════════════════════════
+//  RENDER HOME
+// ══════════════════════════════════════════════════
+function renderStats() {
+  const total = ARTICLES.length;
+  const read = readArticles.length;
+  const scores = Object.values(quizScores);
+  const avgScore = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) : 0;
+
+  document.getElementById('stats-grid').innerHTML = `
+    <div class="stat-card fade-in">
+      <div class="stat-icon">📚</div>
+      <div class="stat-num">${total}</div>
+      <div class="stat-label">إجمالي المقالات</div>
+    </div>
+    <div class="stat-card fade-in" style="animation-delay:0.1s">
+      <div class="stat-icon">✅</div>
+      <div class="stat-num">${read}</div>
+      <div class="stat-label">مقالات مقروءة</div>
+    </div>
+    <div class="stat-card fade-in" style="animation-delay:0.2s">
+      <div class="stat-icon">🏆</div>
+      <div class="stat-num">${avgScore}%</div>
+      <div class="stat-label">متوسط نتائج الاختبارات</div>
+    </div>
+    <div class="stat-card fade-in" style="animation-delay:0.3s">
+      <div class="stat-icon">💡</div>
+      <div class="stat-num">${savedWords.length}</div>
+      <div class="stat-label">كلمات محفوظة</div>
+    </div>
+  `;
+}
+
+function renderSidebar() {
+  const container = document.getElementById('sidebar-articles');
+  container.innerHTML = ARTICLES.map(a => `
+    <div class="nav-item" id="nav-art-${a.id}" onclick="openArticle(${a.id})">
+      <span>${getCatIcon(a.category)}</span>
+      <span style="font-family:var(--font-en);font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${a.title}</span>
+      ${readArticles.includes(a.id) ? '<span class="nav-num" style="background:#00c853;color:#fff">✓</span>' : `<span class="nav-num">${a.id}</span>`}
+    </div>
+  `).join('');
+}
+
+function renderArticlesGrid() {
+  document.getElementById('articles-count').textContent = `${ARTICLES.length} مقال`;
+  document.getElementById('articles-grid').innerHTML = ARTICLES.map((a, i) => {
+    const score = quizScores[a.id];
+    const isRead = readArticles.includes(a.id);
+    return `
+    <div class="article-card fade-in" style="animation-delay:${i*0.06}s" onclick="openArticle(${a.id})">
+      <div class="card-num">نص ${a.id} · ${a.category}</div>
+      <div class="card-title">${a.title}</div>
+      <div class="card-excerpt">${a.text.substring(0,120)}...</div>
+      <div class="card-meta">
+        <span class="card-tag">${getCatIcon(a.category)} ${a.category}</span>
+        ${score !== undefined ? `<span class="card-tag" style="border-color:var(--bmw-blue-light);color:var(--bmw-blue-light)">🏆 ${score}%</span>` : ''}
+        <span class="card-read-badge ${isRead ? 'visible' : ''}">✅ مقروء</span>
+      </div>
+      <div class="read-bar"><div class="read-bar-fill" style="width:${isRead ? '100%' : '0%'}"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function getCatIcon(cat) {
+  const icons = { 'Technology':'🤖', 'Society':'🌍', 'Nature & Science':'🌿', 'Literature':'📖', 'Inspirational':'⭐', 'Culture & History':'🏛️' };
+  return icons[cat] || '📄';
+}
+
+// ══════════════════════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════════════════════
+function goHome() {
+  document.getElementById('home-view').classList.remove('hidden');
+  document.getElementById('article-view').style.display = 'none';
+  document.getElementById('stats-page').style.display = 'none';
+  document.getElementById('articles-section').style.display = 'block';
+  document.getElementById('search-results-view').style.display = 'none';
+  document.getElementById('search-input').value = '';
+  setActiveNav('nav-home');
+  renderStats();
+  renderArticlesGrid();
+  stopSpeech();
+  closeSidebar();
+}
+
+function openArticle(id) {
+  currentArticle = ARTICLES.find(a => a.id === id);
+  if (!currentArticle) return;
+  document.getElementById('home-view').classList.add('hidden');
+  document.getElementById('article-view').style.display = 'block';
+  document.getElementById('article-title').textContent = `${currentArticle.id}. ${currentArticle.title}`;
+  switchTab('text', document.querySelector('.tab'));
+  setActiveNav(`nav-art-${id}`);
+  renderEnglishText();
+  loadTranslation();
+  loadVocab();
+  loadExpected();
+  closeSidebar();
+  quizData = []; userAnswers = {}; quizSubmitted = false;
+  document.getElementById('quiz-questions').innerHTML = '';
+  document.getElementById('quiz-submit-wrap').style.display = 'none';
+  document.getElementById('score-card').classList.remove('visible');
+}
+
+function setActiveNav(id) {
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById(id);
+  if (el) el.classList.add('active');
+}
+
+function switchTab(tab, btn) {
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  else document.querySelectorAll('.tab')[0].classList.add('active');
+  document.getElementById('tab-text').style.display = tab === 'text' ? 'block' : 'none';
+  document.getElementById('tab-vocab').style.display = tab === 'vocab' ? 'block' : 'none';
+  document.getElementById('tab-quiz').style.display = tab === 'quiz' ? 'block' : 'none';
+  document.getElementById('tab-expected').style.display = tab === 'expected' ? 'block' : 'none';
+}
+
+// ══════════════════════════════════════════════════
+//  ENGLISH TEXT WITH CLICKABLE WORDS
+// ══════════════════════════════════════════════════
+function renderEnglishText() {
+  const container = document.getElementById('en-text-content');
+  const paragraphs = currentArticle.text.split('\n').filter(p => p.trim());
+  container.innerHTML = paragraphs.map(p => {
+    const words = p.split(/(\s+)/).map(token => {
+      if (/\s+/.test(token)) return token;
+      const clean = token.replace(/[^a-zA-Z'-]/g, '');
+      if (clean.length < 2) return token;
+      return `<span class="selectable-word" onclick="speakWord('${clean}')" title="استمع: ${clean}">${token}</span>`;
+    }).join('');
+    return `<p style="margin-bottom:12px">${words}</p>`;
+  }).join('');
+
+  // Text selection for listening
+  container.addEventListener('mouseup', () => {
+    const sel = window.getSelection();
+    if (sel && sel.toString().trim().length > 1) {
+      const text = sel.toString().trim();
+      showToast(`🔊 استمع: "${text.substring(0,40)}..."`, 1500);
+      speakWord(text);
+    }
+  });
+}
+
+// ══════════════════════════════════════════════════
+//  AI: TRANSLATION
+// ══════════════════════════════════════════════════
+async function loadTranslation() {
+  const id = currentArticle.id;
+  if (translationCache[id]) {
+    document.getElementById('ar-text-content').innerHTML = translationCache[id];
+    return;
+  }
+  document.getElementById('ar-text-content').innerHTML = '<div class="loader"><div class="spin"></div> جارٍ الترجمة الاحترافية...</div>';
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: 'أنت مترجم محترف. ترجم النص الإنجليزي إلى العربية الفصحى الواضحة. أرجع الترجمة فقط مقسّمة إلى فقرات بعلامة <p> دون أي مقدمة أو تعليق.',
+        messages: [{ role: 'user', content: `ترجم هذا النص إلى العربية:\n\n${currentArticle.text}` }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content.map(c => c.text || '').join('');
+    const html = text.split('\n').filter(p => p.trim()).map(p => `<p style="margin-bottom:14px">${p.trim()}</p>`).join('');
+    translationCache[id] = html;
+    if (currentArticle.id === id) document.getElementById('ar-text-content').innerHTML = html;
+  } catch(e) {
+    document.getElementById('ar-text-content').innerHTML = '<p style="color:var(--error)">تعذّر تحميل الترجمة. يرجى المحاولة مرة أخرى.</p>';
+  }
+}
+
+// ══════════════════════════════════════════════════
+//  AI: VOCABULARY
+// ══════════════════════════════════════════════════
+async function loadVocab() {
+  const id = currentArticle.id;
+  if (vocabCache[id]) {
+    renderVocabCards(vocabCache[id]);
+    return;
+  }
+  document.getElementById('vocab-loader').style.display = 'flex';
+  document.getElementById('vocab-grid').innerHTML = '';
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: 'استخرج 10 كلمات مهمة من النص وأرجع JSON فقط بهذا الشكل بدون أي نص آخر أو backticks:\n[{"word":"...","phonetic":"/.../","arabic":"...","example":"..."}]',
+        messages: [{ role: 'user', content: currentArticle.text.substring(0, 1200) }]
+      })
+    });
+    const data = await res.json();
+    let raw = data.content.map(c => c.text || '').join('').trim();
+    raw = raw.replace(/```json|```/g, '').trim();
+    const vocab = JSON.parse(raw);
+    vocabCache[id] = vocab;
+    if (currentArticle.id === id) renderVocabCards(vocab);
+  } catch(e) {
+    document.getElementById('vocab-loader').innerHTML = '<p style="color:var(--error)">تعذّر تحميل المفردات.</p>';
+  }
+}
+
+function renderVocabCards(vocab) {
+  document.getElementById('vocab-loader').style.display = 'none';
+  document.getElementById('vocab-grid').innerHTML = vocab.map(v => `
+    <div class="vocab-card fade-in">
+      <button class="vocab-speak" onclick="speakWord('${v.word}')" title="استمع">🔊</button>
+      <div class="vocab-word">${v.word}</div>
+      <div class="vocab-phonetic">${v.phonetic || ''}</div>
+      <div class="vocab-ar">${v.arabic}</div>
+      <div class="vocab-example">"${v.example}"</div>
+    </div>
+  `).join('');
+}
+
+// ══════════════════════════════════════════════════
+//  AI: QUIZ
+// ══════════════════════════════════════════════════
+function selectQuizType(btn) {
+  document.querySelectorAll('.quiz-type-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  quizType = btn.dataset.type;
+}
+
+async function generateQuiz() {
+  const btn = document.getElementById('gen-quiz-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spin"></div> جارٍ توليد الاختبار...';
+  document.getElementById('quiz-questions').innerHTML = '<div class="loader"><div class="spin"></div> يتم الآن إنشاء أسئلة متنوعة...</div>';
+  document.getElementById('quiz-submit-wrap').style.display = 'none';
+  document.getElementById('score-card').classList.remove('visible');
+  userAnswers = {}; quizSubmitted = false;
+
+  const typeMap = { mcq: 'اختيار من متعدد (5 أسئلة) بصيغة JSON: [{"q":"...","options":["A","B","C","D"],"answer":0}]', tf: 'صح أو خطأ (6 أسئلة) بصيغة JSON: [{"q":"...","answer":true}]', fill: 'إكمال الفراغات (5 أسئلة) بصيغة JSON: [{"q":"The ___ is important","answer":"word"}]' };
+  const prompt = typeMap[quizType];
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: `أنت معلم لغة إنجليزية. أنشئ أسئلة ${prompt} من النص. أرجع JSON فقط بدون backticks أو نص إضافي.`,
+        messages: [{ role: 'user', content: `النص:\n${currentArticle.text.substring(0, 1500)}` }]
+      })
+    });
+    const data = await res.json();
+    let raw = data.content.map(c => c.text || '').join('').trim();
+    raw = raw.replace(/```json|```/g, '').trim();
+    quizData = JSON.parse(raw);
+    renderQuiz();
+  } catch(e) {
+    document.getElementById('quiz-questions').innerHTML = '<p style="color:var(--error)">تعذّر توليد الاختبار. حاول مرة أخرى.</p>';
+  }
+  btn.disabled = false;
+  btn.innerHTML = '<span>⚡</span> توليد اختبار جديد';
+}
+
+function renderQuiz() {
+  const container = document.getElementById('quiz-questions');
+  if (quizType === 'mcq') {
+    container.innerHTML = quizData.map((q, i) => `
+      <div class="question-card fade-in" id="qcard-${i}">
+        <div class="q-num">Question ${i+1} of ${quizData.length}</div>
+        <div class="q-text">${q.q}</div>
+        <div class="options">
+          ${q.options.map((opt, j) => `
+            <div class="option" id="opt-${i}-${j}" onclick="selectMCQ(${i},${j})">
+              <div class="option-letter">${'ABCD'[j]}</div>
+              ${opt}
+            </div>`).join('')}
+        </div>
+      </div>`).join('');
+  } else if (quizType === 'tf') {
+    container.innerHTML = quizData.map((q, i) => `
+      <div class="question-card fade-in" id="qcard-${i}">
+        <div class="q-num">Question ${i+1} of ${quizData.length}</div>
+        <div class="q-text">${q.q}</div>
+        <div class="tf-options">
+          <div class="tf-btn" id="tf-${i}-true" onclick="selectTF(${i},true)">✅ صحيح</div>
+          <div class="tf-btn" id="tf-${i}-false" onclick="selectTF(${i},false)">❌ خطأ</div>
+        </div>
+      </div>`).join('');
+  } else {
+    container.innerHTML = quizData.map((q, i) => `
+      <div class="question-card fade-in" id="qcard-${i}">
+        <div class="q-num">Question ${i+1} of ${quizData.length}</div>
+        <div class="q-text" style="font-family:var(--font-en);direction:ltr;text-align:left">${q.q}</div>
+        <input type="text" class="fill-input" id="fill-${i}" placeholder="اكتب الإجابة هنا..." oninput="userAnswers[${i}]=this.value">
+      </div>`).join('');
+  }
+  document.getElementById('quiz-submit-wrap').style.display = 'block';
+}
+
+function selectMCQ(qi, oi) {
+  if (quizSubmitted) return;
+  document.querySelectorAll(`[id^="opt-${qi}-"]`).forEach(el => el.classList.remove('selected'));
+  document.getElementById(`opt-${qi}-${oi}`).classList.add('selected');
+  userAnswers[qi] = oi;
+}
+
+function selectTF(qi, val) {
+  if (quizSubmitted) return;
+  document.getElementById(`tf-${qi}-true`).classList.remove('selected');
+  document.getElementById(`tf-${qi}-false`).classList.remove('selected');
+  document.getElementById(`tf-${qi}-${val}`).classList.add('selected');
+  userAnswers[qi] = val;
+}
+
+function submitQuiz() {
+  quizSubmitted = true;
+  let correct = 0;
+  quizData.forEach((q, i) => {
+    const ua = userAnswers[i];
+    if (quizType === 'mcq') {
+      const isCorrect = ua === q.answer;
+      if (isCorrect) correct++;
+      document.querySelectorAll(`[id^="opt-${i}-"]`).forEach((el, j) => {
+        if (j === q.answer) el.classList.add('correct');
+        else if (j === ua && !isCorrect) el.classList.add('wrong');
+        el.style.pointerEvents = 'none';
+      });
+    } else if (quizType === 'tf') {
+      const isCorrect = ua === q.answer;
+      if (isCorrect) correct++;
+      const trueEl = document.getElementById(`tf-${i}-true`);
+      const falseEl = document.getElementById(`tf-${i}-false`);
+      if (q.answer) trueEl.classList.add('correct'); else trueEl.classList.add(ua === true ? 'wrong' : '');
+      if (!q.answer) falseEl.classList.add('correct'); else falseEl.classList.add(ua === false ? 'wrong' : '');
+      trueEl.style.pointerEvents = 'none'; falseEl.style.pointerEvents = 'none';
+    } else {
+      const inp = document.getElementById(`fill-${i}`);
+      const isCorrect = ua && ua.trim().toLowerCase() === q.answer.trim().toLowerCase();
+      if (isCorrect) correct++;
+      if (inp) { inp.classList.add(isCorrect ? 'correct' : 'wrong'); inp.disabled = true; }
+    }
+  });
+  const pct = Math.round((correct / quizData.length) * 100);
+  quizScores[currentArticle.id] = pct;
+  localStorage.setItem('quizScores', JSON.stringify(quizScores));
+  const msg = pct >= 80 ? '🎉 ممتاز!' : pct >= 60 ? '👍 جيد، استمر!' : '📚 تحتاج لمراجعة أكثر';
+  const card = document.getElementById('score-card');
+  card.innerHTML = `
+    <div class="score-circle">
+      <div class="score-pct">${pct}%</div>
+      <div class="score-label">${correct}/${quizData.length}</div>
+    </div>
+    <div class="score-msg">${msg}</div>
+    <p style="color:var(--gray-3);font-size:13px">أجبت على ${correct} من أصل ${quizData.length} سؤالاً بشكل صحيح</p>
+    <button class="retry-btn" onclick="retryQuiz()">🔄 إعادة الاختبار</button>
+  `;
+  card.classList.add('visible');
+  card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function retryQuiz() {
+  quizData = []; userAnswers = {}; quizSubmitted = false;
+  document.getElementById('quiz-questions').innerHTML = '';
+  document.getElementById('quiz-submit-wrap').style.display = 'none';
+  document.getElementById('score-card').classList.remove('visible');
+}
+
+// ══════════════════════════════════════════════════
+//  AI: EXPECTED QUESTIONS
+// ══════════════════════════════════════════════════
+async function loadExpected() {
+  const id = currentArticle.id;
+  if (expectedCache[id]) {
+    renderExpected(expectedCache[id]);
+    return;
+  }
+  document.getElementById('expected-loader').style.display = 'flex';
+  document.getElementById('expected-list').innerHTML = '';
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: 'أنت معلم لغة إنجليزية خبير بامتحانات الثانوية العامة. أنشئ 6 أسئلة متوقعة في الامتحان مع إجاباتها النموذجية. أرجع JSON فقط بدون backticks: [{"q":"...","a":"..."}]',
+        messages: [{ role: 'user', content: currentArticle.text.substring(0, 1200) }]
+      })
+    });
+    const data = await res.json();
+    let raw = data.content.map(c => c.text || '').join('').trim();
+    raw = raw.replace(/```json|```/g, '').trim();
+    const qs = JSON.parse(raw);
+    expectedCache[id] = qs;
+    if (currentArticle.id === id) renderExpected(qs);
+  } catch(e) {
+    document.getElementById('expected-loader').innerHTML = '<p style="color:var(--error)">تعذّر توليد الأسئلة.</p>';
+  }
+}
+
+function renderExpected(qs) {
+  document.getElementById('expected-loader').style.display = 'none';
+  document.getElementById('expected-list').innerHTML = qs.map((q, i) => `
+    <div class="expected-q fade-in" style="animation-delay:${i*0.08}s">
+      <div class="q">❓ ${q.q}</div>
+      <button class="show-ans-btn" onclick="toggleAnswer(this)">عرض الإجابة النموذجية ▼</button>
+      <div class="a">${q.a}</div>
+    </div>
+  `).join('');
+}
+
+function toggleAnswer(btn) {
+  const a = btn.nextElementSibling;
+  a.classList.toggle('visible');
+  btn.textContent = a.classList.contains('visible') ? 'إخفاء الإجابة ▲' : 'عرض الإجابة النموذجية ▼';
+}
+
+// ══════════════════════════════════════════════════
+//  SPEECH
+// ══════════════════════════════════════════════════
+function speakWord(text) {
+  if (!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = 'en-US'; utt.rate = 0.85; utt.pitch = 1;
+  speechSynthesis.speak(utt);
+}
+
+function listenAll() {
+  if (!window.speechSynthesis) { showToast('المتصفح لا يدعم النطق'); return; }
+  speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(currentArticle.text);
+  utt.lang = 'en-US'; utt.rate = 0.8;
+  document.getElementById('btn-listen-all').style.display = 'none';
+  document.getElementById('btn-stop').style.display = 'inline-flex';
+  utt.onend = () => { document.getElementById('btn-listen-all').style.display = 'inline-flex'; document.getElementById('btn-stop').style.display = 'none'; };
+  speechSynthesis.speak(utt);
+}
+
+function stopSpeech() {
+  if (window.speechSynthesis) speechSynthesis.cancel();
+  const la = document.getElementById('btn-listen-all');
+  const st = document.getElementById('btn-stop');
+  if (la) la.style.display = 'inline-flex';
+  if (st) st.style.display = 'none';
+}
+
+// ══════════════════════════════════════════════════
+//  SEARCH
+// ══════════════════════════════════════════════════
+function handleSearch(q) {
+  const rv = document.getElementById('search-results-view');
+  const as = document.getElementById('articles-section');
+  if (!q.trim()) { rv.style.display='none'; as.style.display='block'; return; }
+  rv.style.display='block'; as.style.display='none';
+  const results = ARTICLES.filter(a =>
+    a.title.toLowerCase().includes(q.toLowerCase()) || a.text.toLowerCase().includes(q.toLowerCase())
+  );
+  if (!results.length) {
+    document.getElementById('search-results-list').innerHTML = '<div class="empty"><div class="empty-icon">🔍</div><p>لا توجد نتائج</p></div>';
+    return;
+  }
+  document.getElementById('search-results-list').innerHTML = results.map(a => {
+    const idx = a.text.toLowerCase().indexOf(q.toLowerCase());
+    const snippet = idx > -1 ? a.text.substring(Math.max(0, idx-60), idx+120) : a.text.substring(0,150);
+    const highlighted = snippet.replace(new RegExp(q, 'gi'), m => `<mark>${m}</mark>`);
+    return `<div class="search-result" onclick="openArticle(${a.id})">
+      <div class="search-result-title">📄 ${a.title}</div>
+      <div class="search-result-text">...${highlighted}...</div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════
+//  MARK AS READ
+// ══════════════════════════════════════════════════
+function markAsRead() {
+  if (!currentArticle || readArticles.includes(currentArticle.id)) { showToast('✅ تمت قراءة هذا المقال مسبقاً'); return; }
+  readArticles.push(currentArticle.id);
+  localStorage.setItem('readArticles', JSON.stringify(readArticles));
+  renderSidebar();
+  showToast('✅ تم تمييز المقال كمقروء!');
+}
+
+// ══════════════════════════════════════════════════
+//  STATS PAGE
+// ══════════════════════════════════════════════════
+function showStatsPage() {
+  document.getElementById('home-view').classList.remove('hidden');
+  document.getElementById('article-view').style.display = 'none';
+  document.getElementById('articles-section').style.display = 'none';
+  document.getElementById('search-results-view').style.display = 'none';
+  const sp = document.getElementById('stats-page');
+  sp.style.display = 'block';
+  setActiveNav('nav-stats');
+  const scores = quizScores;
+  sp.innerHTML = `
+    <div class="section-head"><h2>لوحة الإحصائيات</h2><div class="section-line"></div></div>
+    <div style="display:grid;gap:16px;max-width:600px">
+      ${ARTICLES.map(a => {
+        const read = readArticles.includes(a.id);
+        const score = scores[a.id];
+        return `<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius-sm);padding:16px;display:flex;align-items:center;gap:12px;cursor:pointer" onclick="openArticle(${a.id})">
+          <div style="width:36px;height:36px;border-radius:50%;background:${read ? 'var(--success)' : 'var(--black-3)'};display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:13px;flex-shrink:0">${read ? '✓' : a.id}</div>
+          <div style="flex:1">
+            <div style="font-weight:600;font-family:var(--font-en);font-size:14px">${a.title}</div>
+            <div style="font-size:12px;color:var(--gray-3)">${a.category} · ${read ? 'مقروء' : 'غير مقروء'}</div>
+          </div>
+          ${score !== undefined ? `<div style="font-weight:700;color:${score>=80?'var(--success)':score>=60?'var(--bmw-blue)':'var(--error)'};font-family:var(--font-en)">${score}%</div>` : '<div style="font-size:12px;color:var(--gray-3)">لم يُختبر</div>'}
+        </div>`;
+      }).join('')}
+    </div>
+  `;
+  closeSidebar();
+}
+
+// ══════════════════════════════════════════════════
+//  THEME
+// ══════════════════════════════════════════════════
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') !== 'light';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.querySelector('#header .icon-btn').textContent = isDark ? '☀️' : '🌙';
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+}
+function applyTheme() {
+  const saved = localStorage.getItem('theme') || 'dark';
+  if (saved === 'light') { document.documentElement.setAttribute('data-theme', 'light'); document.querySelector('#header .icon-btn').textContent = '☀️'; }
+}
+
+// ══════════════════════════════════════════════════
+//  SIDEBAR MOBILE
+// ══════════════════════════════════════════════════
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('active');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('active');
+}
+
+// ══════════════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════════════
+let toastTimer;
+function showToast(msg, duration = 2500) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), duration);
+}
+</script>
+</body>
+</html>
